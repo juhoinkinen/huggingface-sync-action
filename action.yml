@@ -6,9 +6,9 @@ branding:
   color: yellow
 
 inputs:
-  subdirectory:
-    type: string
-    default: ''
+  # subdirectory:
+  #   type: string
+  #   default: ''
   huggingface_repo_id:
     required: true
     type: string
@@ -17,15 +17,12 @@ inputs:
   repo_type:
     type: string
     default: 'space'
-  space_sdk:
-    type: string
-    default: 'gradio'
+  # space_sdk:
+  #   type: string
+  #   default: 'gradio'
   private:
     type: boolean
     default: false
-  branch:
-    type: string
-    default: 'main'
 
 runs:
   using: "composite"
@@ -41,7 +38,8 @@ runs:
     - name: Push to hub
       shell: bash
       run: |
-        ls -l  # debug
         huggingface-cli upload \
           ${{ inputs.huggingface_repo_id }} . \
-          --token ${{ inputs.hf_token }}
+          --repo-type ${{ inputs.repo_type }}  \
+          --token ${{ inputs.hf_token }} \
+          --quiet
