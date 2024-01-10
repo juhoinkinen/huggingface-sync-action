@@ -33,15 +33,15 @@ runs:
     - name: Install Hugging Face Hub CLI tool
       shell: bash
       run: |
-        pip install huggingface-hub hf-transfer
+        pip install huggingface-hub  # hf-transfer
 
-    - name: Push to hub
+    - name: Push to Hugging Face Hub
       shell: bash
-      env:
-        HF_HUB_ENABLE_HF_TRANSFER: 1
+      # env:
+      #   HF_HUB_ENABLE_HF_TRANSFER: 1
       run: |
         huggingface-cli upload \
-          ${{ inputs.huggingface_repo_id }} . \
+          ${{ inputs.huggingface_repo_id }} . . \
           --repo-type ${{ inputs.repo_type }}  \
           --token ${{ inputs.hf_token }} \
           --quiet
