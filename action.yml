@@ -6,9 +6,6 @@ branding:
   color: yellow
 
 inputs:
-  github_repo_id:
-    required: true
-    type: string
   subdirectory:
     type: string
     default: ''
@@ -26,6 +23,9 @@ inputs:
   private:
     type: boolean
     default: false
+  branch:
+    type: string
+    default: 'main'
 
 runs:
   using: "composite"
@@ -33,13 +33,12 @@ runs:
     - name: Checkout Action GitHub Repo
       uses: actions/checkout@v2
       with:
-        repository: 'nateraw/spaces-action'
-        path: cloned_hf_action_repo
+        repository: 'juhoinkinen/huggingface-sync-action'
 
     - name: Checkout Source GitHub Repo to Push
       uses: actions/checkout@v2
       with:
-        repository: '${{ inputs.github_repo_id }}'
+        ref: "${{ inputs.branch }}"
         # Relative path under $GITHUB_WORKSPACE to place the repository
         path: cloned_github_repo
 
@@ -47,9 +46,10 @@ runs:
       shell: bash
       run: |
         cd cloned_hf_action_repo
-        git pull origin main
+        ls -l  # debug
         pip install -r requirements.txt
         cd ..
+        ls -l cloned_hf_action_repo  # debug
         python cloned_hf_action_repo/sync_with_spaces.py \
           --repo_id ${{ inputs.huggingface_repo_id }} \
           --directory "cloned_github_repo/${{ inputs.subdirectory }}" \

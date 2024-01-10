@@ -25,7 +25,7 @@ with:
   # The type of repo you are syncing to: model, dataset, or space.
   # Defaults to space.
   repo_type: 'space'
-  
+
   # If true and the Hugging Face repo doesn't already exist, it will be created
   # as a private repo.
   #
@@ -37,11 +37,15 @@ with:
   # This option is especially important if the repo has not been created yet.
   # It won't really be used if the repo already exists.
   space_sdk: 'gradio'
-  
+
   # If provided, subdirectory will determine which directory of the repo will be synced.
   # By default, this action syncs the entire GitHub repo.
   #
   # An example using this option can be seen here:
   # https://github.com/huggingface/fuego/blob/830ed98/.github/workflows/sync-with-huggingface.yml
   subdirectory: ''
+
+  # The branch of the github repo you are syncing from.
+  # By default, this action syncs the 'main' branch.
+  branch: 'main'
 ```
