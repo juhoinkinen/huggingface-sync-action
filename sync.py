@@ -9,7 +9,7 @@ def main(
     space_sdk: str = "gradio",
     private: bool = False,
 ):
-    print("Syncing with Hugging Face Spaces...")
+    print("Syncing with Hugging Face Hub...")
 
     if "/" not in repo_id:
         # Case namespace is implicit
